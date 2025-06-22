@@ -1,0 +1,92 @@
+%-----------------------------------------------------------------
+\begin{plSection}{Cartesian products}
+\label{sec:Cartesian-products}
+
+Combining and factoring sets and functions.
+
+Factor set into product of other sets.
+
+Factor function into 'coordinate' functions:
+$f : \Set{X} \rightarrow \Set{Y}_0 \times \Set{Y}_1$
+via
+$f \left( x \right) = 
+\left[ f_0\left( x \right) , f_1\left( x \right) \right]$
+
+Also 'reduce':
+$f : \Set{X}_0 \times \Set{X}_1 \rightarrow \Set{Y}$
+via 
+ $f\left( \left[ x_0, x_1 \right] \right)
+= r \left(
+\left[ f_0 \left( x_0 \right) , f_1 \left( x_1 \right) \right] 
+\right)$,
+eg, for linear functions, 
+ $f\left( \left[ x_0, x_1 \right] \right)
+=  f_0 \left( x_0 \right) + f_1 \left( x_1 \right)$,
+
+%-----------------------------------------------------------------
+\begin{plSection}{Cartesian product sets}
+\label{sec:Cartesian-product-sets}
+
+% \gls{tuple}
+A tuple is a fixed length list, which I will write, for example,
+$[a \, b \, c]$, in a Clojure-like syntax,
+or sometimes as $a \times b \times c$.
+
+% \gls{cartesian-product}
+The cartesian product set 
+$\Set{A} \times \Set{B} =
+\SetSpec{[a \, b] }{ a \in \Set{A} \text{ and } b \in \Set{B} }$.
+
+Extending this notation beyond two terms,
+$\Set{A} \times \Set{B} \times \Set{C}$,
+introduces ambiguity typically ignored in mathematics literature,
+using the implied natural identity mentioned above.
+Strictly speaking,
+\begin{itemize}
+  \item $\Set{A} \times \Set{B} \times \Set{C} = 
+  \SetSpec{[a \, b \, c] }{ \ldots }$
+  \item $\Set{A} \times (\Set{B} \times \Set{C}) = 
+  \SetSpec{[a \, [b \,c]] }{ \ldots }$
+  \item $(\Set{A} \times \Set{B}) \times \Set{C} = 
+  \SetSpec{[[a \, b] \, c]] }{ \ldots }$
+\end{itemize}
+are 3 distinct sets.
+\end{plSection}%{Cartesian product sets}
+%-----------------------------------------------------------------
+\begin{plSection}{Generalized tuples}
+\label{sec:Generalized-tuples}
+
+Tuples as functions from index set to set elements.
+
+'Subspace' corresponds to subset of index set.
+
+Canonical projections and embeddings.
+
+Generalized coordinates.
+\end{plSection}%{Generalized tuples}
+%-----------------------------------------------------------------
+\begin{plSection}{Cartesion product functions}
+\label{sec:Cartesion-product-functions}
+
+Aka \textit{coordinate functions}.
+
+Suppose $f : \Set{X} \rightarrow \Set{Y}_0 \times \Set{Y}_1$,
+and $f \left( x \right) = \left[ y_0 ,y_1 \right]$
+Then we can write $f = f_0 \times f_1$ where
+$f_0 \left( x \right) = y_0 $
+and
+$f_1 \left( x \right) = y_1 $.
+
+\textbf{TODO:} $f$ corresponds to a functional relation on 
+$\Set{X} \times \left( \Set{Y}_0 \times \Set{Y}-1 \right)$).
+Does this imply functional relations $f_i$ on
+$\Set{X} \times \Set{Y}_i$?
+How about $f_i = e_i \circ f$,
+where $e_i : \times_j \Set{X}_j  \rightarrow \Set{X}_i$ by
+$e_i \left( [x_0, x_1 \ldots  x_{n-1} \right) = x_i$ 
+
+% \end{figure}
+\end{plSection}%{Cartesion product functions}
+%-----------------------------------------------------------------
+\end{plSection}%{Cartesian products}
+

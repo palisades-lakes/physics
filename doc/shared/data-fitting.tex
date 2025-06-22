@@ -1,0 +1,285 @@
+\begin{plSection}{Data Fitting}
+\label{sec:data-fitting}
+
+We can fit a triangular mesh, $\Set{M}$, to a set of data points, 
+$\left\{\Vector{d}_i; i=0 \ldots n-1\right\}$
+by minimizing the sum of the $l_2$ distances from the points to the mesh:
+\begin{equation}
+f(\Set{M}) = \sum_{i=0}^{n-1} 
+\|\Vector{d}_i - \Projection_{\Set{M}} (\Vector{d}_i)\|^2 ,
+\end{equation}
+where $\Projection_{\Set{M}} (\Vector{d}_i)$ 
+is the point on $\Set{M}$ closest to $\Vector{d}_i$,
+that is, the {\em projection} of $\Vector{d}_i$ on $\Set{M}$.
+Note that $f:\Reals^{3n} \mapsto \Re$,
+where $n$ is the number of vertices in $\Set{M}$.
+
+We compute $\Projection_{\Set{M}} (\Vector{d})$ by minimizing  
+$\|\Vector{d}-\Projection_{\Simplex{s}} (\Vector{d})\|^2$
+over all simplices $\Simplex{s} \in \Set{M}$.
+We need only consider the faces of $\Set{M}$,
+those edges not in any face,
+and the vertices not in any edge,
+because the closest point on a face must at least
+as the closest point on any of its edges,
+and similarly for vertices.
+More generally, spatial binning of the simplices and data can greatly
+reduce the number of simplices that need to be examined.
+
+The following sections consider the projection of a single
+data point $\Vector{d}$ on a mesh $\Set{M}$,
+and the gradient of the squared distance,
+as a function of the vertex positions $\Vector{p}(\Simplex{v})$.
+
+Unfortunately, derivatives of the distance function are not continuous.
+Second derivative discontinuities occur
+when a data point is on the boundary
+of a 'watershed' region, the set of points
+projecting on a vertex or the interior of an edge or face.
+Gradient discontinuities are encountered
+when a data point is equidistant from 2 distinct closest mesh points.
+
+%-----------------------------------------------------------------
+\begin{plSection}{Distance to vertex}
+\label{sec:Distance-to-vertex}
+
+Let $\Vector{p} = \Vector{p}(\Simplex{v})$ 
+be the position of a particular vertex $\Simplex{v}$,
+and $\Vector{d}$ the 3d data point.
+It follows from \cref{eq:l2-gradient} that
+\begin{equation}
+\label{eq:vertex-distance-gradient}
+\Gradient[\Vector{p}]{\|\Vector{p}-\Vector{d}\|^2}[\Vector{q}] 
+= 2 ( \Vector{q}-\Vector{d} ).
+\end{equation}
+
+The distance to the nearest vertex in a set of vertices $\Set{V}$ is:
+$\min_{\Simplex{v} \in \Set{V}} 
+\|\Vector{p}(\Simplex{v})-\Vector{d}\|^2$.
+If $\Simplex{v}^{\mathrm min}$ is the minimizing vertex,
+and
+$\Vector{p}^{\mathrm min}$ its position,
+then the partial gradient with respect
+to the position of any other vertex is zero,
+and the partial gradient with respect to $\Vector{p}^{\mathrm min}$
+is given in \cref{eq:vertex-distance-gradient}.
+Note that the gradient is only defined and continuous
+while $\Vector{d}$ is within the interior of the
+Voronoi regions surrounding the vertices.
+
+\end{plSection}%{Distance to vertex}
+%-----------------------------------------------------------------
+\begin{plSection}{Distance to edge}
+\label{sec:Distance-to-edge}
+
+Let the edge $\Simplex{e}$ have end points 
+$\Vector{p} = (\Vector{p}_0, \Vector{p}_1) \in \Reals^6$.
+We can write the projection of a data point 
+$\Vector{d}$ on $\Simplex{e}$ as:
+\begin{equation}
+\Projection_{\Vector{p}} (\Vector{d}) 
+= b_0(\Vector{p}) \Vector{p}_0 + b_1(\Vector{p}) \Vector{p}_1
+\end{equation}
+where
+\begin{eqnarray}
+b_0(\Vector{p}) & = &
+\min\left(0,\max\left(1,
+\frac{ (\Vector{d}-\Vector{p}_1) \bullet (\Vector{p}_0-\Vector{p}_1) }
+{\|\Vector{p}_0-\Vector{p}_1\|^2 }
+\right) \right) \\
+b_1(\Vector{p}) & = & 1-b_0(\Vector{p})
+\nonumber
+\end{eqnarray}
+
+\begin{eqnarray}
+\label{eq:edge-distance-gradient-derivation}
+\Derivative[\Vector{p}_0]
+{\|\Projection_{\Vector{p}} (\Vector{d})-\Vector{d}\|^2 }
+[\Vector{q}]
+& = &
+2 \left( 
+\Projection_{\Vector{q}} (\Vector{d})-\Vector{d} 
+\right)^\dagger
+\Derivative[\Vector{p}_0]
+{\Projection_{\Vector{p}} (\Vector{d}) }
+[\Vector{q}]
+\\
+& = &
+2 \left( 
+\Projection_{\Vector{q}} (\Vector{d})-\Vector{d}
+ \right)^\dagger
+\Derivative[\Vector{p}_0]
+{\left[ 
+b_0(\Vector{p})\Vector{p}_0 + b_1(\Vector{p})\Vector{p}_1 
+\right]}
+[\Vector{q}]
+\nonumber \\
+& = &
+2 \left( 
+\Projection_{\Vector{q}} (\Vector{d})-\Vector{d}
+ \right)^\dagger
+\Derivative[\Vector{p}_0]
+{\left[ 
+b_0(\Vector{p})\Vector{p}_0 + (1-b_0(\Vector{p}))\Vector{p}_1 
+\right]}
+[\Vector{q}]
+\nonumber \\
+& = &
+2 \left( \Projection_{\Vector{q}} (\Vector{d})-\Vector{d}
+ \right)^\dagger
+\Derivative[\Vector{p}_0]
+{\left[ b_0(\Vector{p})(\Vector{p}_0-\Vector{p}_1) \right]}
+[\Vector{q}]
+\nonumber \\
+& = &
+2 \left( 
+\Projection_{\Vector{q}} (\Vector{d})-\Vector{d} \right)^\dagger
+\left[ b_0(\Vector{q}) \Identity + (\Vector{q}_0-\Vector{q}_1)
+ \otimes 
+ \Gradient[\Vector{p}_0]{b_0(\Vector{p})}[\Vector{q}] \right]
+\nonumber
+\end{eqnarray}
+Because
+ $\left( \Projection_{\Vector{q}}
+  (\Vector{d})-\Vector{d} \right)$ is orthogonal to
+$\left( \Vector{q}_0-\Vector{q}_1 \right)$, we get:
+\begin{eqnarray}
+\label{eq:edge-distance-gradient}
+\Gradient[\Vector{p}_0]
+{\|\Projection_{\Vector{p}} (\Vector{d})-\Vector{d}\|^2}
+[\Vector{q}]
+& = & 2 b_0(\Vector{q}) 
+\left[ \Projection_{\Vector{q}} (\Vector{d})-\Vector{d} \right]
+\\
+\Gradient[\Vector{p}_1]
+{\|\Projection_{\Vector{p}} (\Vector{d})-\Vector{d}|^2 }
+[\Vector{q}]
+& = & 2 b_1(\Vector{q}) 
+\left[ \Projection_{\Vector{q}} (\Vector{d})-\Vector{d} \right]
+\nonumber
+\end{eqnarray}
+
+As in the vertex case,
+the distance to the nearest edge in a set of edges $\Set{E}$ is:
+\begin{equation}
+\|\Projection_{\Set{E}} (\Vector{d})-\Vector{d}|^2
+ = \min_{\Simplex{e} \in \Set{E}}
+ \|\Projection_{\Vector{p}(\Simplex{e})}
+  (\Vector{d})-\Vector{d}\|^2
+\end{equation}
+If $\Simplex{e}^{\min}$ is the minimizing edge,
+$\Simplex{v}_0^{\min}$ and $\Simplex{v}_1^{\min}$ its vertices,
+and $\Vector{p}_0^{\min}$ and $\Vector{p}_1^{\min}$
+the corresponding endpoints,
+then the partial gradient with respect to
+the position of any
+other vertex is zero,
+and the partial gradient with respect 
+to $\Vector{p}_0^{\min}$ and $\Vector{p}_1^{\min}$
+is given in \cref{eq:edge-distance-gradient}.
+
+The total gradient is defined and continuous
+when $\Vector{d}$ is within the union of the watershed regions
+of $\Simplex{e}^{\min}$ and its vertices.
+It is also continuous where the watershed of one of the vertices
+meets the watershed of any of the edges containing that vertex.
+It is not if $\Vector{d}$ lies on the boundary of the
+watershed of $\Simplex{e}^{\min}$ and the watershed of an
+edge with which it does not share a vertex.
+
+\end{plSection}%{Distance to edge}
+%-----------------------------------------------------------------
+\begin{plSection}{Distance to face}
+\label{sec:Distance-to-face}
+
+Let the face $\Simplex{f}$ have corner points 
+$\Vector{p} = (\Vector{p}_0, \Vector{p}_1, \Vector{p}_2) \in \Reals^9$.
+As in the edge case,
+we can write the projection of a data point $\Vector{d}$ on $\Simplex{f}$
+in terms of the barycentric coordinates as:
+\begin{equation}
+\Projection_{\Vector{p}} (\Vector{d}) = 
+b_0(\Vector{p}) \Vector{p}_0 + b_1(\Vector{p}) \Vector{p}_1 
++ b_2(\Vector{p}) \Vector{p}_2,
+\end{equation}
+and, by an argument similar to that used in
+\cref{eq:edge-distance-gradient-derivation},
+we can show that
+\begin{eqnarray}
+\label{eq:face-distance-gradient}
+\Gradient[\Vector{p}_0]
+{\|\Projection_{\Vector{p}} (\Vector{d})-\Vector{d}\|^2 }
+[\Vector{q}]
+& = & 2 b_0(\Vector{q}) 
+\left[ \Projection_{\Vector{q}} (\Vector{d})-\Vector{d} \right]
+\\
+\Gradient[\Vector{p}_1]
+{\|\Projection_{\Vector{p}} (\Vector{d})-\Vector{d}|^2 }
+[\Vector{q}]
+& = & 2 b_1(\Vector{q}) 
+\left[ \Projection_{\Vector{q}} (\Vector{d})-\Vector{d} \right]
+\nonumber
+\\
+\Gradient[\Vector{p}_2]
+{\|\Projection_{\Vector{p}} (\Vector{d})-\Vector{d}|^2 }
+[\Vector{q}]
+& = & 2 b_2(\Vector{q}) 
+\left[ \Projection_{\Vector{q}} (\Vector{d})-\Vector{d} \right]
+\nonumber
+\end{eqnarray}
+
+Computing the barycentric coordinates for the projection
+on a face (triangle) is slightly more complicated than
+for an edge (line segment).
+
+First center the problem by letting
+$\Vector{v} = \Vector{p}-\Vector{p}_0$,
+$\Vector{v}_1 = \Vector{p}_1-\Vector{p}_0$, 
+and $\Vector{v}_2 = \Vector{p}_2-\Vector{p}_0$.
+Then compute the raw, unbounded barycentric coordinates
+of the projection of $\Vector{p}$ onto the plane
+spanned by the triangle:
+\begin{eqnarray}
+r_0(\Vector{p}) & = & 1-r_1(\Vector{p})-r_2(\Vector{p})
+\\
+r_1(\Vector{p}) & = & v \bullet 
+\frac{\Vector{v}_1 \perp \Vector{v}_2}
+{\|\Vector{v}_1 \perp \Vector{v}_2\|^2}
+\nonumber
+\\
+r_2(\Vector{p}) & = & v \bullet 
+\frac{\Vector{v}\Vector{v} \perp \Vector{v}_1} 
+{\|\Vector{v}_2 \perp \Vector{v}_1\|^2}
+\nonumber
+\end{eqnarray}
+To correctly bound the raw coordinates to numbers between 0 and 1,
+we need to determine whether the projected point is in
+the interior of the triangle, on one of the edges,
+or on one of the vertices.
+
+\begin{description}
+
+\item[Vertex case:]
+If any 2 of the $r_i$ are negative,
+then $\Vector{p}$ projects on the remaining vertex.
+Set the 2 $b_i$ corresponding to the negative $r_i$
+to 0 and the remaining $b_i$ to 1.
+
+\item[Edge case:]
+If any single 1 of the $r_i$ is negative,
+then $\Vector{p}$ projects on the opposite edge.
+Set the $b_i$ corresponding to the negative $r_i$
+to 0.
+Go to \cref{sec:Distance-to-edge} to see
+how to compute the remaining barycentric coordinates
+by projecting on the edge
+
+\item[Interior case:]
+If none of the $r_i$ is negative,
+then $\Vector{p}$ projects on the interior
+and each $b_i = r_i$
+
+\end{description}
+\end{plSection}%{Distance to face}
+%-----------------------------------------------------------------
+\end{plSection}%{Data Fitting}

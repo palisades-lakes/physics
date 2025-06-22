@@ -1,0 +1,292 @@
+%-----------------------------------------------------------------
+\begin{plSection}{Logic}
+\label{sec:Logic}
+
+\citeAuthorTitle{wiki:Logic}
+
+\citeAuthorYearTitle{Ferreiros2001RoadModernLogic}
+
+Axioms with quantifiers vs axiom schemas?
+
+Relationship between $\exists, \forall$ quantifiers
+and general iteration/reduction over sets?
+
+Is there such a thing as no-order logic?
+Self-referential definition of sets, relations, functions,
+(and arithmetic) etc. 
+Logical system  as just another mathematical structure:
+sets plus functions plus constraints on function values.
+
+Church and Turing vs G\"{o}del.
+
+Tarski.
+
+%-----------------------------------------------------------------
+\begin{plSection}{Classical Logic}
+\label{sec:Classical Logic}
+
+\citeAuthorYearTitle{sep:ClassicalLogic}
+
+\end{plSection}%{Classical Logic}
+%-----------------------------------------------------------------
+\begin{plSection}{Formal languages}
+\label{sec:Formal_languages}
+
+\citeAuthorYearTitle{DutilhNovaes:2012:FormalLanguages}
+
+\end{plSection}%{Formal languages}
+%-----------------------------------------------------------------
+\begin{plSection}{Proof theory}
+\label{sec:Proof_theory}
+
+\end{plSection}%{Proof theory}
+%-----------------------------------------------------------------
+\begin{plSection}{Model theory}
+\label{sec:Model_theory}
+
+\end{plSection}%{Model theory}
+%-----------------------------------------------------------------
+\begin{plSection}{Zeroth order logic}
+\label{sec:Zeroth_order_logic}
+
+Classical zeroth-order (propositional) 
+logic~\citeAuthorYearTitle{iep:PropositionalLogic,
+wiki:PropositionalCalculus,
+wiki:ZerothOrderLogic}
+
+Subtle difference sometimes between propositional
+and zeroth-order logic 
+(=binary truth functional propositional logic).
+
+Formal system:
+language with atomic symbols
+and logical operators defining well-formed formulas,
+and inference rules that a set of axiom formulas 
+and return deduced formulas.
+\begin{description}
+\item[Atoms]  $A, B, \ldots P, Q, \ldots$, 
+that may be assigned values \textsf{true} or \textsf{false}.
+
+\item[Operators] $\lnot P$, $P \wedge Q$, $P \vee Q$, 
+$P \Rightarrow Q$, $P \Leftrightarrow Q$. 
+Minimal set is $\lnot$ and 
+any $2$ of  $\wedge, \vee, \Rightarrow$;
+sufficient to define $2$ remaining operators.
+
+\item[Propositions] (Well formed formulas)
+Recursively: atoms and propositions combined with operators,
+including parens for grouping: $(P \wedge Q) \Rightarrow R$.
+
+\item[Inference rules] ${P \Rightarrow Q, P} \vdash Q$:
+Takes a set of propositions (with truth assignments?)
+and returns another proposition.
+\end{description}
+
+A variety of such formal languages.
+
+Syntatic entailment: formula derived from set of axioms 
+using inference rules in a finite number of steps.
+
+Semantic entailment: formula evaluates to \textsf{true}
+under all possible truth assignments to variables
+in axioms.
+
+Issues are 
+\begin{description}
+\item[Soundness]
+All syntactically entailed formulas
+are semantically entailed, that is,
+a sequence of inferences will never lead to a contradiction.
+
+\item[Completeness] 
+all semantically entailed formulas 
+are syntactically entailed, that is,
+any statement which is consistent with the axioms under all 
+possible truth assignments is derivable (somehow) using the 
+inference rules.
+\end{description}soundness 
+
+%-----------------------------------------------------------------
+\begin{plSection}{Intuitionist zeroth order logic}
+\label{sec:Intuitionist_zeroth_order_logic}
+
+\citeAuthorTitle{wiki:IntuitionisticLogic}
+
+No law of excluded middle~\citeAuthorTitle{wiki:LawOfExcludedMiddle}.
+
+\end{plSection}%{Intuitionist zeroth order logic}
+%-----------------------------------------------------------------
+\end{plSection}%{Zeroth order logic}
+%-----------------------------------------------------------------
+\begin{plSection}{Modal logic}
+\label{sec:Modal_logic}
+
+\citeAuthorTitle{wiki:ModalLogic}
+
+Possibility vs necessity.
+
+Epistemic: state of knowledge
+
+Temporal 
+
+\end{plSection}%{Modal logic}
+%-----------------------------------------------------------------
+\begin{plSection}{Paraconsistent logic}
+\label{sec:Paraconsistent_logic}
+
+\citeAuthorTitle{wiki:Paraconsistent_logic}
+
+Get rid of "from a contradiction, anything follows".
+\end{plSection}%{Paraconsistent logic}
+%-----------------------------------------------------------------
+\begin{plSection}{First order logic}
+\label{sec:First_order_logic}
+
+First-order (aka predicate) logic.~\citeAuthorTitle{wiki:FirstOrderLogic,
+sep:EmergenceOfFirstOrderLOgic}
+
+\begin{description}
+\item[Truth values] Usually $\left\{\mathsf{true},\mathsf{false}\right\}$,
+but more than $2$ values is possible.
+\item[Domain of discourse] A set $\Set{D}$.
+\item[Constants] $A,B,C, \ldots$ names for values in the
+domain.
+\item[Variables] $a,b,c, \ldots x,y,\dots$ taking on values in the
+domain.~\citeAuthorTitle{wiki:FreeVariablesAndBoundVariables}
+\item[Equality] combine atoms and variables.
+\item[Functions] combine atoms and variables.
+\item[Quantifiers]   
+$\exists x \in \Set{S}$, $\forall x \in \Set{S}$ 
+(where $\Set{S} \subseteq \Set{D}$);
+$\exists x$ means $\exists x \in \Set{D}$, 
+and
+$\forall x$ means $\forall x \in \Set{D}$) 
+bind variables in
+formulas.~\citeAuthorTitle{wiki:QuantifierLogic}
+More specialized quantifiers are possible:
+$\exists \textrm{ a unique } x \in \Set{S}$
+\item[Predicates] combine atoms and variables.
+\end{description} 
+
+Differentiate 1st order \textit{language} 
+(no domain of discourse, just symbols)
+from \textit{interpretation} 
+(assignment of terms to elements of $\Set{D}$).
+
+See also models/structures.~\citeAuthorTitle{wiki:ModelTheory}
+
+(Circularity w.r.t set theory?
+Zermelo-Fraenkel uses 1st order logic to define sets,
+but 1st order logic is defined using sets\ldots?)
+
+%-----------------------------------------------------------------
+\begin{plSection}{First order language}
+\label{sec:First_order_language}
+
+Syntactic rules without domain of discourse.
+
+Signature: arities of predicates and functions.
+
+Prenex normal form (PNF):~\citeAuthorTitle{wiki:PrenexNormalForm} 
+\textit{prefix} containing all quantifiers 
+followed by quantifier-free \textit{matrix}.
+
+In classical logic, every wff has a prenex equivalent;
+not true for intuitionistic logic.
+
+Example:
+$\forall x 
+((\exists y\phi (y))
+\lor 
+((\exists z\psi (z))\rightarrow \rho (x)))$ is not prenex.
+$\forall x\exists y\forall z
+(\phi (y)\lor (\psi (z)\rightarrow \rho (x)))$ 
+is equivalent prenex. 
+(does this fail in intuitionistic logic?)
+
+\end{plSection}%{First order language}
+%-----------------------------------------------------------------
+\begin{plSection}{First order model}
+\label{sec:First_order_model}
+
+Domain of discourse and evaluation of formulas.
+
+Equality.
+(does this belong here? can also be axioms on a theory.)
+
+\end{plSection}%{First order model}
+%-----------------------------------------------------------------
+\begin{plSection}{First order theory}
+\label{sec:First_order_theory}
+
+Axioms (and axiom schemas).~\citeAuthorTitle{wiki:ListOfFirstOrderTheories}
+
+Consistency: no contradiction derivable from axioms.
+
+Completeness: any formula can be proven 
+\textsf{true} or \textsf{false} 
+(axioms plus formula permit derivation of 
+\textsf{true} or \textsf{false} but not both).
+
+\end{plSection}%{First order theory}
+%-----------------------------------------------------------------
+\begin{plSection}{First order deductive systems}
+\label{sec:First_order_deductive_systems}
+
+Rules of inference.
+
+\end{plSection}%{First order deductive systems}
+%-----------------------------------------------------------------
+\begin{plSection}{Monadic first order logic}
+\label{sec:Monadic_first_order_logic}
+
+All predicates and functions are unary 
+(1 argument).~\citeAuthorTitle{wiki:MonadicPredicateCalculus}
+
+Decidable, not very expressive.
+
+\end{plSection}%{Monadic first order logic}
+%-----------------------------------------------------------------
+\begin{plSection}{Many sorted first order models}
+\label{sec:Many_sorted_first_order_models}
+
+Hilbert's function calculus.~\citeAuthorYearTitle{sep:EmergenceOfFirstOrderLOgic}
+
+Domain of discourse has multiple sets;
+variables 'typed' as having values in some particular 
+set.~\citeAuthorYearTitle{sep:modeltheory_fo}
+
+(Is this really different from
+axiom restricting variable to subset of domain?()
+
+\end{plSection}%{Many sorted first order models}
+%-----------------------------------------------------------------
+\end{plSection}%{First order logic}
+%-----------------------------------------------------------------
+\begin{plSection}{Second order logic}
+\label{sec:Second_order_logic}
+
+Second-order logic~\citeAuthorTitle{wiki:SecondOrderLogic,
+wiki:SecondOrderPropositionalLogic}
+
+\end{plSection}%{Second order logic}
+%-----------------------------------------------------------------
+\begin{plSection}{Higher order logic}
+\label{sec:Higher_order_logic}
+
+Higher-order logic~\citeAuthorTitle{wiki:HigherOrderLogic}
+
+\end{plSection}%{Higher order logic}
+%-----------------------------------------------------------------
+\begin{plSection}{Constructivism}
+\label{sec:Constructivism_logic}
+
+\citeAuthorYearTitle{Feferman:2000:ConstructivePredicativeClassicalAnalysis,Diez:2002:Constructivism,sep:ConstructiveMathematics,
+wiki:ConstructivismPhilosophyOfMathematics}
+
+As opposed to classical logic~\citeAuthorTitle{wiki:ClassicalLogic}.
+\end{plSection}%{Constructivism}
+%-----------------------------------------------------------------
+\end{plSection}%{Logic}
+%-----------------------------------------------------------------
+ 

@@ -1,0 +1,17 @@
+[0] Config.pm:308> INFO - This is Biber 2.20
+[0] Config.pm:311> INFO - Logfile is 'geology-questions.blg'
+[90] biber-MSWIN64:340> INFO - === 
+[130] Biber.pm:420> INFO - Reading 'geology-questions.bcf'
+[226] Biber.pm:994> INFO - Found 1 citekeys in bib section 0
+[237] Biber.pm:4463> INFO - Processing section 0
+[249] Biber.pm:4654> INFO - Looking for bibtex file 'PalisadesLakes.bib' for section 0
+[556] bibtex.pm:1713> INFO - LaTeX decoding ...
+[949] bibtex.pm:1519> INFO - Found BibTeX data source 'C:/porta/projects/PalisadesLakesTex/bibtex/bib/PalisadesLakes/PalisadesLakes.bib'
+[1013] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[1013] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[1013] Biber.pm:4283> INFO - Sorting list 'nty/global//global/global/global' of type 'entry' with template 'nty' and locale 'en-US'
+[1013] Biber.pm:4289> INFO - No sort tailoring available for locale 'en-US'
+[1017] bbl.pm:676> INFO - Writing 'geology-questions.bbl' with encoding 'UTF-8'
+[1018] bbl.pm:779> INFO - Output to geology-questions.bbl
+[1018] Biber.pm:131> WARN - BibTeX subsystem: C:\Users\mcdon\AppData\Local\Temp\biber_tmp_oMgm\f5e3349a16dbe91983c78b03f18c537f_23712.utf8, line 3113, warning: 135 characters of junk seen at toplevel
+[1018] Biber.pm:133> INFO - WARNINGS: 1
