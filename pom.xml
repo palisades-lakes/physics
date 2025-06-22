@@ -5,7 +5,7 @@
  <!-- groupId>palisades-lakes</groupId -->
  <artifactId>physics</artifactId>
  <description>physics notes and related code</description>
- <version>0.0.0</version>
+ <version>0.0.1</version>
  <parent>
   <groupId>palisades-lakes</groupId>
   <artifactId>palisades-lakes-parent</artifactId>
